@@ -138,7 +138,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Inventory </h3>
+                                        <h3>Properties </h3>
                                     <table class="table table-bordered">
                                         <thead>
                                           <tr>
@@ -151,7 +151,7 @@
                                         </thead>
                                         <tbody>
                                     <?php foreach ($role_data as $value) { if ($value->module_component == 'products') {?>      <tr>
-                                            <td>Products</td>
+                                            <td>Properties</td>
                                             <input type="checkbox" name="products[module_component]" value="products" hidden="" checked="">
                                             <td><input type="checkbox" name="products[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
                                             <td><input type="checkbox" name="products[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>

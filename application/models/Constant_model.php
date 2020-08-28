@@ -50,15 +50,7 @@ class Constant_model extends CI_Model
         return $this->db->insert_id();
     }
     
-    public function Check_enrolled_courses($student_id,$course_id)
-	{
-		$this->db->select('*');
-		$this->db->from('enrolled_courses');
-		$this->db->where('student_id',$student_id);
-        $this->db->where('course_id',$course_id);
-		$result = $this->db->get();
-		return $result->num_rows();
-	}
+   
 
 	public function getDataOneColumn($table, $col1_name, $col1_value)
     {
@@ -91,20 +83,7 @@ class Constant_model extends CI_Model
         $query = $this->db->get("$table");    
         return $query->row();
     }
-    public function count_row($table,$user_type,$belong_by='')
-    {
-          // $q = $this->db->count_all_results($value);
-        if ($user_type == 'partner_admin') {
-            $this->db->where('belong_by',$belong_by);
-        }
-        if ($user_type == 'teacher') {
-            $this->db->where('belong_by',$belong_by);
-        }
-        
-        $this->db->from($table);
-        $q = $this->db->count_all_results(); 
-        return $q;
-    }   
+   
 
     public function get_users($value,$user_id)
     {
@@ -129,43 +108,10 @@ class Constant_model extends CI_Model
         return $result;
     }
 
-    public function get_users_noti($user_id)
-    {
-        $this->db->select('news_feed.*');
-        $this->db->from('news_feed');
-        $this->db->join('news_feed_noti','news_feed_noti.feed_id = news_feed.id');
-        $this->db->where('news_feed.deleted_at',NULL);
-        $this->db->where('news_feed_noti.user_id',$user_id);
-        $this->db->order_by("news_feed.id", "DESC");
-        $this->db->limit('4');
-        $query = $this->db->get();
-        $result = $query->result();
-        return $result;
-    }
-    public function get_total_noti($user_id)
-    {
-        $this->db->select('news_feed.*');
-        $this->db->from('news_feed');
-        $this->db->join('news_feed_noti','news_feed_noti.feed_id = news_feed.id');
-        $this->db->where('news_feed.deleted_at',NULL);
-        $this->db->where('news_feed_noti.user_id',$user_id);
-        $this->db->order_by("news_feed.id", "DESC");
-        $q = $this->db->count_all_results(); 
-        return $q;
-    }
+   
+   
 
-    public function get_exam_questions($exam_id,$tab_num)
-    {
-        $this->db->select('exams_questions.*');
-        $this->db->from('exams_questions');
-        $this->db->where('tab_num',$tab_num);
-        $this->db->where('exam_id',$exam_id);
-       // $this->db->order_by("exams_questions.id", "DESC");
-        $this->db->where('exams_questions.deleted_at',NULL);
-        $query = $this->db->get();
-        $result = $query->result();
-        return $result;
-    }
+   
     
 }
 

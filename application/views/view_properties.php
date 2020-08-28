@@ -144,7 +144,7 @@
       "processing" : true,
       "serverSide" : true,
       "ajax" : {
-        url:"<?=site_url('Properties/getItems')?>/"+status,
+        url:"<?=site_url('Properties/getProperties')?>/"+status,
         type:"POST"
       },
       dom: 'lBfrtip',

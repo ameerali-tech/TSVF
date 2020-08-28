@@ -12,7 +12,7 @@
         <div class="logo clearfix" style="padding-top: 30px">
           <img src="<?=base_url('app-assets/images/logo.png')?>" width="30" class="text align-middle" />
           <strong class="text" style="color:#fff; font-size: 20px;">
-          Odacity Inventory
+          Martinbornilla
           </strong>
         </div>
       </a>
@@ -32,15 +32,24 @@
             
             <li class="has-sub nav-item <?php echo (@$active_menu=='view_item' || @$active_menu=='add_item'?'open':'')?>"><a><i class="fa fa-sitemap"></i><span data-i18n="" class="menu-title">Properties</span></a>
                 <ul class="menu-content" style="">
-                  <li class="<?php echo (@$active_menu=='add_item'?'active':'')?>"><a href="<?=site_url('Properties/add_item');?>" class="menu-item">Add Properties</a>
+                  <li class="<?php echo (@$active_menu=='add_properties'?'active':'')?>"><a href="<?=site_url('Properties/add_properties');?>" class="menu-item">Add Properties</a>
                   </li>
                 </ul>
                 <ul class="menu-content" style="">
-                  <li class="<?php echo (@$active_menu=='view_item'?'active':'')?>"><a href="<?=site_url('Properties/view_item');?>" class="menu-item">View Properties</a>
+                  <li class="<?php echo (@$active_menu=='view_properties'?'active':'')?>"><a href="<?=site_url('Properties/view_properties');?>" class="menu-item">View Properties</a>
                   </li>
                 </ul>
             </li>
-           
+           <li class="has-sub nav-item <?php echo (@$active_menu=='view_supplier' || @$active_menu=='add_supplier'?'open':'')?>"><a><i class="ft-users"></i><span data-i18n="" class="menu-title">Suppliers</span></a>
+                <ul class="menu-content" style="">
+                  <li class="<?php echo (@$active_menu=='add_supplier'?'active':'')?>"><a href="<?=site_url('Supplier/add_supplier');?>" class="menu-item">Add Supplier</a>
+                  </li>
+                </ul>
+                <ul class="menu-content" style="">
+                  <li class="<?php echo (@$active_menu=='view_supplier'?'active':'')?>"><a href="<?=site_url('Supplier/view_supplier');?>" class="menu-item">View Suppliers</a>
+                  </li>
+                </ul>
+            </li>
             <?php if($this->session->userdata('user_type') != 'admin') { ?>
               <li class=" nav-item <?php echo (@$active_menu=='sales'?'active':'')?>">
                 <a href="<?=site_url('sales/index');?>"><i class="ft-credit-card"></i><span data-i18n="" class="menu-title" style="font-size: 14px!important;">New Sale</span>
@@ -59,6 +68,16 @@
                 </ul>
                 <ul class="menu-content" style="">
                   <li class="<?php echo (@$active_menu=='view_user'?'active':'')?>"><a href="<?=site_url('admin/view_users');?>" class="menu-item">View Users</a>
+                  </li>
+                </ul>
+            </li>
+            <li class="has-sub nav-item <?php echo (@$active_menu=='view_userrolls' || @$active_menu=='view_userrolls'?'open':'')?>"><a><i class="ft-user"></i><span data-i18n="" class="menu-title">Users Rolls</span></a>
+                <ul class="menu-content" style="">
+                  <li class="<?php echo (@$active_menu=='add_userroll'?'active':'')?>"><a href="<?=site_url('admin/add_role');?>" class="menu-item">Add Users Rolls</a>
+                  </li>
+                </ul>
+                <ul class="menu-content" style="">
+                  <li class="<?php echo (@$active_menu=='view_userroll'?'active':'')?>"><a href="<?=site_url('admin/view_role');?>" class="menu-item">View Users Rolls</a>
                   </li>
                 </ul>
             </li>

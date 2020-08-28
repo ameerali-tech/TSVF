@@ -9,28 +9,10 @@
                 </div>
                 <div class="card-body">
                     <div class="px-3">
-                        <form class="form" action="<?=base_url();?>items/save_item" method="post" enctype="multipart/form-data">
+                        <form class="form" action="<?=base_url();?>Properties/save_properties" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="item_id" value="<?=@$form_data->id?>">
                             <div class="form-body">
                                 <div class="row">
-                                  <?php if($this->session->userdata('user_type') == "admin") { ?>
-                                    <div class="col-xl-12 col-lg-6 col-md-12 mb-1">
-                                        <fieldset class="form-group">
-                                          <label for="basicInput">Select Shop *</label>
-                                          <select class="form-control" name="warehouse_id" required>
-                                            <option value=""> -- Select -- </option>
-                                            <?php foreach($warehouses as $warehouse) { ?>
-                                              <?php
-                                              $selected = "";
-                                              if($warehouse->id == $form_data->warehouse_id) {
-                                                $selected = "selected";
-                                              } ?>
-                                              <option value="<?=$warehouse->id?>" <?=$selected?>> <?=$warehouse->warehouse_name?> </option>
-                                            <?php } ?>
-                                          </select>
-                                        </fieldset>
-                                    </div>
-                                  <?php } ?>
                                     <div class="col-xl-6 col-lg-6 mb-1">
                                         <fieldset class="form-group">
                                             <label for="basicInput">Name *</label>

@@ -59,9 +59,6 @@ class Admin_model extends CI_Model
    }
 
    
-
-   
-
    public function getBillData($search_val='', $status='')
    {
       $this->db->select('purchase_bills.*,warehouse.warehouse_name');
@@ -91,5 +88,21 @@ class Admin_model extends CI_Model
         return $result;
    }
 
+   public function getSupplier($search_val='', $status='')
+   {
+     $this->db->select('suppliers.*,warehouse.warehouse_name');
+      $this->db->from('suppliers');
+      $this->db->join('warehouse','warehouse.id = suppliers.warehouse_id');
+      
+      if (!empty($search_val)) {
+        $this->db->or_like('warehouse.warehouse_name', $search_val);
+        $this->db->or_like('items.name', $search_val);
+      }  
+      $this->db->order_by("suppliers.id", "DESC");
+  
+      $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+   }
 	
 }

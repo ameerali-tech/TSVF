@@ -12,21 +12,20 @@ class Properties extends CI_Controller {
 
     }
 
-    public function add_item()
+    public function add_properties()
     {
       $data = array(
-        'title' => 'Add Item',
-        'active_menu' => 'add_item',
-        'warehouses' => $this->Constant_model->get_alltable_desc('warehouse'),
+        'title' => 'Add Properties',
+        'active_menu' => 'add_properties'
       );
 
       $this->load->view('header',$data);
       $this->load->view('sidebar');
-      $this->load->view('add_item');
+      $this->load->view('add_properties');
       $this->load->view('footer');
     }
 
-    public function save_item()
+    public function save_properties()
     {
 
       if($this->session->userdata('user_type') == "admin") {
@@ -44,36 +43,36 @@ class Properties extends CI_Controller {
         'notes' => $_POST['notes'],
       );
 
-      if (empty($_POST['item_id'])) {
-        $this->session->set_flashdata(array('response' => 'success', 'msg' => "Successfully added item"));
-        $res = $this->Constant_model->insert_alltable('items',$data);
+      if (empty($_POST['properties_id'])) {
+        $this->session->set_flashdata(array('response' => 'success', 'msg' => "Successfully added properties"));
+        $res = $this->Constant_model->insert_alltable('properties',$data);
       }else{
-        $this->session->set_flashdata(array('response' => 'success', 'msg' => "Successfully updated item"));
-        $res = $this->Constant_model->updateData('items',$data,$_POST['item_id']);
+        $this->session->set_flashdata(array('response' => 'success', 'msg' => "Successfully updated properties"));
+        $res = $this->Constant_model->updateData('properties',$data,$_POST['properties_id']);
       }
-      redirect(base_url().'items/view_item');
+      redirect(base_url().'properties/view_properties');
     }
 
-    public function view_item($value='')
+    public function view_properties($value='')
     {
       $data = array(
-        'title' => 'View Items',
-        'active_menu' => 'view_item'
+        'title' => 'View Properties',
+        'active_menu' => 'view_properties'
       );
       $this->load->view('header',$data);
       $this->load->view('sidebar');
-      $this->load->view('view_item');
+      $this->load->view('view_properties');
       $this->load->view('footer');
     }
 
 
-    public function getItems($value='')
+    public function getProperties($value='')
     {
       $search_val = $this->input->post('search')['value'];
       if($search_val != "") {
-        $result = $this->admin_model->getItems($search_val, $status='');
+        $result = $this->Admin_model->getProperties($search_val, $status='');
       } else {
-        $result = $this->Constant_model->get_alltable_desc('items');
+        $result = $this->Constant_model->get_alltable_desc('properties');
       }
         $data = array();
         $sno = 1;
@@ -87,13 +86,13 @@ class Properties extends CI_Controller {
           $sub_array[] = $value->size;
           $sub_array[] = $value->color;
           $sub_array[] = $value->weight;
-          $sub_array[] = $value->item_qty;
+          $sub_array[] = $value->properties_qty;
           $sub_array[] = get_date($value->created_at);
           $sub_array[] = $value->notes;
 
 
-          $buttons = "<a href='".site_url('items/edit_item/'.hashids_encrypt($value->id))."' class='btn small-btn'><i class='icon-pencil'></i> Edit </a>
-         <a href='".site_url('items/delete_item/'.hashids_encrypt(@$value->id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
+          $buttons = "<a href='".site_url('properties/edit_properties/'.hashids_encrypt($value->id))."' class='btn small-btn'><i class='icon-pencil'></i> Edit </a>
+         <a href='".site_url('properties/delete_properties/'.hashids_encrypt(@$value->id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
           $sub_array[] = $buttons;
           $data[] = $sub_array;
           $sno++;
@@ -107,28 +106,28 @@ class Properties extends CI_Controller {
         echo json_encode($output);
     }
 
-    public function edit_item($id)
+    public function edit_properties($id)
     {
       $id = hashids_decrypt($id);
        $data = array(
-        'title' => 'Edit Item',
-        'active_menu' => 'add_item',
-        'form_data' => $this->Constant_model->getOneCol('items','id',$id),
+        'title' => 'Edit Properties',
+        'active_menu' => 'add_properties',
+        'form_data' => $this->Constant_model->getOneCol('properties','id',$id),
         'warehouses' => $this->Constant_model->get_alltable_desc('warehouse'),
       );
 
       $this->load->view('header',$data);
       $this->load->view('sidebar');
-      $this->load->view('add_item');
+      $this->load->view('add_properties');
       $this->load->view('footer');
     }
 
-    public function delete_item($id)
+    public function delete_properties($id)
     {
       $id = hashids_decrypt($id);
-      $res = $this->Constant_model->deleteData('items',$id);
-      $this->session->set_flashdata(array('response' => 'success', 'msg' => "Deleted Item successfully!"));
-        return redirect(base_url().'items/view_item');
+      $res = $this->Constant_model->deleteData('properties',$id);
+      $this->session->set_flashdata(array('response' => 'success', 'msg' => "Deleted Properties successfully!"));
+        return redirect(base_url().'properties/view_properties');
     }
 
     //  stocks funcation
@@ -139,7 +138,7 @@ class Properties extends CI_Controller {
         'active_menu' => 'add_stock',
       );
       $data['warehouse_data'] = $this->Constant_model->get_alltable_desc('warehouse');
-      $data['item_data'] = $this->Constant_model->get_alltable_desc('items');
+      $data['properties_data'] = $this->Constant_model->get_alltable_desc('properties');
 
       $this->load->view('header',$data);
       $this->load->view('sidebar');
@@ -149,7 +148,7 @@ class Properties extends CI_Controller {
 
     public function save_stock($value='')
     {
-      $item_id = hashids_decrypt($_POST['item_id']);
+      $properties_id = hashids_decrypt($_POST['properties_id']);
 
       if($this->session->userdata('user_type') == "admin") {
         $warehouse_id = $_POST['warehouse_id'];
@@ -160,16 +159,16 @@ class Properties extends CI_Controller {
       $data = array(
         'warehouse_id' => $warehouse_id,
         'added_by' => $_SESSION['user_id'],
-        'item_id' => $item_id,
+        'Properties_id' => $Properties_id,
         'qty' => $_POST['qty'],
       );
       $this->Constant_model->insert_alltable('stock',$data);
       $this->Constant_model->insert_alltable('inventory',$data);
-      $item_data = $this->Constant_model->getOneCol('items','id',$item_id);
-      $item_qty = $item_data->item_qty+$_POST['qty'];
-      $update_data = array('item_qty' => $item_qty);
-      $this->Constant_model->updateData('items',$update_data,$item_id);
-      return redirect(base_url().'items/view_stock');
+      $properties_data = $this->Constant_model->getOneCol('properties','id',$properties_id);
+      $properties_qty = $properties_data->properties_qty+$_POST['qty'];
+      $update_data = array('properties_qty' => $properties_qty);
+      $this->Constant_model->updateData('properties',$update_data,$properties_id);
+      return redirect(base_url().'properties/view_stock');
     }
 
     public function view_stock($value='')
@@ -207,7 +206,7 @@ class Properties extends CI_Controller {
           $sub_array[] = get_date($value->created_at);
 
 
-          $buttons = "<a href='".site_url('items/delete_stock/'.hashids_encrypt(@$value->id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
+          $buttons = "<a href='".site_url('properties/delete_stock/'.hashids_encrypt(@$value->id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
           $sub_array[] = $buttons;
           $data[] = $sub_array;
           $sno++;
@@ -226,14 +225,14 @@ class Properties extends CI_Controller {
       $id = hashids_decrypt($id);
 
       $stock_data = $this->Constant_model->getOneCol('stock','id',$id);
-      $item_data = $this->Constant_model->getOneCol('items','id',$stock_data->item_id); $update_qty = $item_data->item_qty - $stock_data->qty;
-      $update_item_qty = array('item_qty' => $update_qty); print_r($update_item_qty);
+      $properties_data = $this->Constant_model->getOneCol('properties','id',$stock_data->properties_id); $update_qty = $properties_data->properties_qty - $stock_data->qty;
+      $update_properties_qty = array('properties_qty' => $update_qty); print_r($update_properties_qty);
 
-      $this->Constant_model->updateData('items',$update_item_qty,$item_data->id);
+      $this->Constant_model->updateData('properties',$update_properties_qty,$properties_data->id);
 
       $res = $this->Constant_model->deleteData('stock',$id);
       $this->session->set_flashdata(array('response' => 'success', 'msg' => "Deleted Stock successfully!"));
-        return redirect(base_url().'items/view_stock');
+        return redirect(base_url().'properties/view_stock');
     }
 
     // stocks funcation end
