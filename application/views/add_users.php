@@ -22,14 +22,24 @@
 
                                     <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                         <fieldset class="form-group">
-                                            <label for="basicInput">Password *</label>
-                                            <input type="text" class="form-control" placeholder="enter password" required=""  name="password" value="<?=@$this->encryption->decrypt($user_data->password)?>">
+                                            <label for="basicInput">User Role</label>
+                                              <select class="form-control" name="user_role_id" required>
+                                                <option  value=""> -- Select User -- </option>
+                                                <?php foreach($roles as $key => $value ){
+                                                  $selected = "";
+                                                  if(@$user_data->user_role_id == $value->role_id){
+                                                    $selected = "selected";
+                                                  }
+                                                    ?>
+                                                  <option value="<?php echo $value->role_id;?>" <?=$selected?>><?=$value->role_name?></option>
+                                                <?php } ?>
+                                              </select>
                                         </fieldset>
                                     </div>
                                     <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                         <fieldset class="form-group">
-                                            <label for="basicInput">Email *</label>
-                                            <input type="text" class="form-control" placeholder="enter email" required="" name="email" value="<?=@$user_data->email?>">
+                                          <label for="basicInput">Password *</label>
+                                          <input type="text" class="form-control" placeholder="enter password" required=""  name="password" value="<?=@$this->encryption->decrypt($user_data->password)?>">
                                         </fieldset>
                                     </div>
 
@@ -49,6 +59,12 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Phone Number *</label>
                                             <input type="text" class="form-control" placeholder="enter phone number" required="" name="ph_num" value="<?=@$user_data->email?>">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                        <fieldset class="form-group">
+                                          <label for="basicInput">Email *</label>
+                                          <input type="text" class="form-control" placeholder="enter email" required="" name="email" value="<?=@$user_data->email?>">
                                         </fieldset>
                                     </div>
 

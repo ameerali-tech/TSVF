@@ -56,13 +56,12 @@
                         <tr>
                             <th>S.No</th>
                             <th>Name</th>
-                            <th>Size</th>
-                            <th>Color</th>
-                            <th>Weight</th>
-                            <th>Qty</th>
-                            <th>Created Date</th>
-                            <th>Notes</th>
-                            <th>Actions</th> 
+                            <th>Lot Size</th>
+                            <th>Amount/ Square Meter</th>
+                            <th>Cost</th>
+                            <th>SKU</th>
+                            <th>payment_terms</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                 </table>
@@ -144,8 +143,8 @@
       "processing" : true,
       "serverSide" : true,
       "ajax" : {
-        url:"<?=site_url('Properties/getProperties')?>/"+status,
-        type:"POST"
+        url:"<?=site_url('Properties/getProperties')?>",
+        type:"POST",
       },
       dom: 'lBfrtip',
       buttons: [{ extend: 'excel', text: 'Export to excel' }],
@@ -153,53 +152,5 @@
     });
  });
 
- function show_modal(id) {
-   $('#order_id').val(id);
-   $('#statusModal').modal('show');
-   $('.item_god_bad').hide();
- }
 
- $('.status_order').change(function(){
-    if ($(this).val() == 'received') {
-      $('.item_god_bad').show();
-      var id = $('#order_id').val();
-      $.ajax({
-        url : '<?=site_url('admin/getWarehouseInfo')?>',
-        data : {id : id},
-        method:'post',
-        success : function (data) {
-          console.log(data);
-          $('.item_god_bad').html(data);
-        }
-
-      })
-
-      $('input[name=received_date]').prop('required',true);
-    }
-    else
-    {
-      $('.item_god_bad').hide();
-      $('input[name=received_date]').prop('required',false);
-    }
- })
-
- function showViewModal(id){
-   $('#viewModal').modal('show');
-
-   $.ajax({
-    url : '<?=site_url('admin/getWarehouseInfo/')?>'+id,
-//    dataType : 'json',
-    success :function(data) { 
-      $('.view_details_').html(data);
-    }
-   })
-
- }
-
- function showModal(id){
-    $('#order_id').val(id);
-    $('#viewModal').modal('hide');
-    $('#statusModal').modal('show');
-    $('.item_god_bad').hide();
- }
 </script>

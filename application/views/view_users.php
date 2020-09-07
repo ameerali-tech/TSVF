@@ -60,9 +60,9 @@
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Username</th>
-                            
                             <th>User Role</th>
-                            <th>Actions</th> 
+                            <th>User type</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                 </table>
@@ -189,7 +189,7 @@
    $.ajax({
     url : '<?=site_url('admin/getWarehouseInfo/')?>'+id,
 //    dataType : 'json',
-    success :function(data) { 
+    success :function(data) {
       $('.view_details_').html(data);
     }
    })

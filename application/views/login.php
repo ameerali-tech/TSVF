@@ -11,7 +11,7 @@ $alert_msg=$this->session->userdata('alert_msg');
     <meta name="description" content="Apex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Apex admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Login Page - Odacity Inventory Managment system</title>
+    <title>Login Page - CORNER STONES Properties Managment system</title>
     <link rel="apple-touch-icon" sizes="60x60" href="<?=base_url('app-assets/img/ico/apple-icon-60.png')?>">
     <link rel="apple-touch-icon" sizes="76x76" href="<?=base_url('app-assets/img/ico/apple-icon-76.png')?>">
     <link rel="apple-touch-icon" sizes="120x120" href="<?=base_url('app-assets/img/ico/apple-icon-120.png')?>">
@@ -66,7 +66,7 @@ $alert_msg=$this->session->userdata('alert_msg');
                   <form class="login-form" action="<?=site_url('auth/login')?>" method="post">
                   <h4 class="mb-2 card-title">Login</h4>
                   <p class="card-text mb-3">
-                    Wellcome to Odacity Inventory Management system
+                    Wellcome to CORNER STONES 8 Properties Management system
                   </p>
                     <?php
                         if (!empty($alert_msg)) {

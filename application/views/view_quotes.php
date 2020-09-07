@@ -51,21 +51,15 @@
                     <?=$this->session->flashdata('msg')?>
                   </div>
                 <?php } ?>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column display" id="suppliers" style="width:100%">
+                <table class="table table-striped table-bordered table-hover table-checkable order-column display" id="quotes" style="width:100%">
                     <thead>
                         <tr>
                             <th>S.No</th>
-                            <th>Supplier Name</th>
+                            <th>Customer Name</th>
+                            <th>Property Name</th>
+                            <th>Total Amount</th>
                             <th>Payment Method</th>
-                            <th>Credit Days</th>
-                            <th>Contact Person</th>
-                            <th>City</th>
-                            <th>Mobile #</th>
-                            <th>Address</th>
-                            <th>Person Name</th>
-                            <th>Person Designation</th>
-                            <th>Person Number</th>
-                            <th>Status</th>
+                            <th>Notes</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -125,7 +119,7 @@
 <!-- viewModal -->
 <div class="modal fade" id="viewModal" tabindex="0" role="dialog" aria-labelledby="statusModalTitle" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content" style="width: 1000px;">
+    <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="statusModalTitle">View Details</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -143,11 +137,11 @@
 </div>
 <script type="text/javascript" language="javascript">
  $(document).ready(function(){
-    $('#suppliers').DataTable({
+    $('#quotes').DataTable({
       "processing" : true,
       "serverSide" : true,
       "ajax" : {
-        url:"<?=site_url('Supplier/getSupplier')?>",
+        url:"<?=site_url('Admin/getQuotes')?>",
         type:"POST"
       },
       dom: 'lBfrtip',
@@ -156,52 +150,16 @@
     });
  });
 
- function show_modal(id) {
-   $('#order_id').val(id);
-   $('#statusModal').modal('show');
-   $('.item_god_bad').hide();
- }
-
- $('.status_order').change(function(){
-    if ($(this).val() == 'received') {
-      $('.item_god_bad').show();
-      var id = $('#order_id').val();
-      $.ajax({
-        url : '<?=site_url('admin/getWarehouseInfo')?>',
-        data : {id : id},
-        method:'post',
-        success : function (data) {
-          console.log(data);
-          $('.item_god_bad').html(data);
-        }
-      })
-
-      $('input[name=received_date]').prop('required',true);
-    }
-    else
-    {
-      $('.item_god_bad').hide();
-      $('input[name=received_date]').prop('required',false);
-    }
- })
-
  function showViewModal(id){
    $('#viewModal').modal('show');
 
    $.ajax({
-    url : '<?=site_url('admin/getWarehouseInfo/')?>'+id,
-//    dataType : 'json',
+    url : '<?=site_url('admin/view_details_popup/')?>'+id,
+    dataType : 'json',
     success :function(data) {
       $('.view_details_').html(data);
     }
    })
 
- }
-
- function showModal(id){
-    $('#order_id').val(id);
-    $('#viewModal').modal('hide');
-    $('#statusModal').modal('show');
-    $('.item_god_bad').hide();
  }
 </script>

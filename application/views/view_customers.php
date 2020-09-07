@@ -55,16 +55,11 @@
                     <thead>
                         <tr>
                             <th>S.No</th>
-                            <th>Supplier Name</th>
-                            <th>Payment Method</th>
-                            <th>Credit Days</th>
-                            <th>Contact Person</th>
-                            <th>City</th>
-                            <th>Mobile #</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
                             <th>Address</th>
-                            <th>Person Name</th>
-                            <th>Person Designation</th>
-                            <th>Person Number</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -147,7 +142,7 @@
       "processing" : true,
       "serverSide" : true,
       "ajax" : {
-        url:"<?=site_url('Supplier/getSupplier')?>",
+        url:"<?=site_url('Users/getCustomers')?>",
         type:"POST"
       },
       dom: 'lBfrtip',

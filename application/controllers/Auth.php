@@ -32,24 +32,24 @@ class Auth extends CI_Controller {
 			if ($res['valid']) {
 				$user_data = array(
 					'user_id' =>$res['user_id'] ,
-          'warehouse_id' => $res['warehouse_id'],
+          // 'warehouse_id' => $res['warehouse_id'],
           'username' =>$res['username'] ,
           'first_name' =>$res['first_name'],
           'last_name' =>$res['last_name'],
           'email' =>$res['email'],
           'user_type' =>$res['user_type'],
           'status' =>$res['status'],
-          'low_stock_qty' =>$res['low_stock_qty'],
+          // 'low_stock_qty' =>$res['low_stock_qty'],
 				);
 
 
-				 if($user_data['user_type'] != "admin" && $user_data['warehouse_id'] == 0) {
+				 if($user_data['user_type'] != "admin" ) {
 					 $this->session->set_flashdata('alert_msg', array('failure', 'in', "You are not linked to any Shop please ask your admin to assign you to a Shop"));
 									 return redirect(base_url().'Auth');
 				 }
 
 				 $this->session->set_userdata($user_data);
- 				return redirect(base_url().'Items/inventory');
+ 				return redirect(base_url().'admin/dashboard');
 
 			} else {
 				$this->session->set_flashdata('alert_msg', array('failure', 'Login', $res['error']));

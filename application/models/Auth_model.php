@@ -18,7 +18,7 @@ class Auth_model extends CI_Model
 			if ($password == $this->encryption->decrypt($user_data->password)) {
 					$result['valid'] = true;
 					$result['user_id'] = $user_data->id;
-					$result['warehouse_id'] = $user_data->warehouse_id;
+					// $result['warehouse_id'] = $user_data->warehouse_id;
 					$result['username'] = $user_data->username;
                     $result['first_name'] = $user_data->first_name;
                     $result['last_name'] = $user_data->last_name;
@@ -26,7 +26,7 @@ class Auth_model extends CI_Model
                     $result['user_type'] = $user_data->user_type;
                  //   $result['user_img'] = $user_data->user_img;
                     $result['status'] = $user_data->status;
-                    $result['low_stock_qty'] = $user_data->low_stock_qty;
+                    // $result['low_stock_qty'] = $user_data->low_stock_qty;
                // }
 			}else{
 				$result['valid'] = false;

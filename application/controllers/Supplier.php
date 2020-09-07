@@ -5,11 +5,11 @@ class Supplier extends CI_Controller {
     function __construct() {
 
         parent::__construct();
-        if (empty($_SESSION['username'])) {   
+        if (empty($_SESSION['username'])) {
             return redirect(base_url().'auth');
         }
         $this->load->model('Admin_model');
-        
+
     }
 
     public function add_supplier()
@@ -18,7 +18,6 @@ class Supplier extends CI_Controller {
       $data = array(
         'title' => 'Add Supplier',
         'active_menu' => 'add_supplier',
-        'warehouse_data' => $this->Constant_model->get_alltable_desc('warehouse'),
       );
       $this->load->view('header',$data);
       $this->load->view('sidebar');
@@ -34,7 +33,6 @@ class Supplier extends CI_Controller {
           $img = '404.png';
       }
       $data = array(
-        'warehouse_id' => hashids_decrypt($_POST['warehouse']),
         'supplier_name' => $_POST['supplier_name'],
         'payment_method' => $_POST['payment_method'],
         'credit_days' => $_POST['credit_days'],
@@ -52,7 +50,7 @@ class Supplier extends CI_Controller {
         $res = $this->Constant_model->insert_alltable('suppliers',$data);
       }else{
         $this->session->set_flashdata(array('response' => 'success', 'msg' => "Successfully updated supplier"));
-        $res = $this->Constant_model->updateData('suppliers',$data,$_POST['user_id']);
+        $res = $this->Constant_model->updateData('suppliers',$data,'supplier_id',$_POST['user_id']);
       }
       redirect(base_url().'Supplier/view_supplier');
     }
@@ -82,13 +80,11 @@ class Supplier extends CI_Controller {
         $sno = 1;
         foreach ($result as $value) {
         if ($value->user_status == 'active') {
-            $class = 'badge badge-success'; 
+            $class = 'badge badge-success';
           }else{ $class = 'badge badge-danger';  };
-          
+
           $sub_array = array();
           $sub_array[] = $sno; $buttons = "";
-          
-          $sub_array[] = $value->warehouse_name;
           $sub_array[] = $value->supplier_name;
           $sub_array[] = $value->payment_method;
           $sub_array[] = $value->credit_days;
@@ -101,9 +97,9 @@ class Supplier extends CI_Controller {
           $sub_array[] = $value->person_number;
          // / $sub_array[] = get_date($value->created_at);
           $sub_array[] = '<span class="'.$class.'">'.$value->user_status.'</span>';
-          
-          $buttons = "<a href='".site_url('Supplier/edit_supplier/'.hashids_encrypt($value->id))."' class='btn small-btn'><i class='icon-pencil'></i> Edit </a>
-         <a href='".site_url('Supplier/delete_supplier/'.hashids_encrypt(@$value->id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
+
+          $buttons = "<a href='".site_url('Supplier/edit_supplier/'.hashids_encrypt($value->supplier_id))."' class='btn small-btn'><i class='icon-pencil'></i> Edit </a>
+         <a href='".site_url('Supplier/delete_supplier/'.hashids_encrypt(@$value->supplier_id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
           $sub_array[] = $buttons;
           $data[] = $sub_array;
           $sno++;
@@ -123,8 +119,7 @@ class Supplier extends CI_Controller {
       $data = array(
         'title' => 'Edit Supplier',
         'active_menu' => 'add_supplier',
-        'warehouse_data' => $this->Constant_model->get_alltable_desc('warehouse'),
-        'user_data' => $this->Constant_model->getOneCol('suppliers','id',$id)
+        'user_data' => $this->Constant_model->getOneCol('suppliers','supplier_id',$id)
       );
       $this->load->view('header',$data);
       $this->load->view('sidebar');
@@ -135,7 +130,7 @@ class Supplier extends CI_Controller {
     public function delete_supplier($id)
     {
       $id = hashids_decrypt($id);
-      $res = $this->Constant_model->deleteData('suppliers',$id);
+      $res = $this->Constant_model->deleteData('suppliers','supplier_id',$id);
       $this->session->set_flashdata(array('response' => 'success', 'msg' => "Deleted Item successfully!"));
         return redirect(base_url().'Supplier/view_supplier');
     }

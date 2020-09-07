@@ -10,10 +10,10 @@
   <div class="sidebar-header">
       <a href="<?=site_url('/')?>">
         <div class="logo clearfix" style="padding-top: 30px">
-          <img src="<?=base_url('app-assets/images/logo.png')?>" width="30" class="text align-middle" />
-          <strong class="text" style="color:#fff; font-size: 20px;">
+          <img src="<?=base_url('app-assets/images/logo1.png')?>" width="200" class="text align-middle" />
+          <!-- <strong class="text" style="color:#fff; font-size: 20px;">
           Martinbornilla
-          </strong>
+          </strong> -->
         </div>
       </a>
   </div>
@@ -29,7 +29,7 @@
               </a>
             </li>
             <?php } ?>
-            
+
             <li class="has-sub nav-item <?php echo (@$active_menu=='view_item' || @$active_menu=='add_item'?'open':'')?>"><a><i class="fa fa-sitemap"></i><span data-i18n="" class="menu-title">Properties</span></a>
                 <ul class="menu-content" style="">
                   <li class="<?php echo (@$active_menu=='add_properties'?'active':'')?>"><a href="<?=site_url('Properties/add_properties');?>" class="menu-item">Add Properties</a>
@@ -50,6 +50,26 @@
                   </li>
                 </ul>
             </li>
+            <li class="has-sub nav-item <?php echo (@$active_menu=='view_customer' || @$active_menu=='add_customer'?'open':'')?>"><a><i class="ft-users"></i><span data-i18n="" class="menu-title">Customers</span></a>
+                 <ul class="menu-content" style="">
+                   <li class="<?php echo (@$active_menu=='add_customer'?'active':'')?>"><a href="<?=site_url('Users/add_customers');?>" class="menu-item">Add Customers</a>
+                   </li>
+                 </ul>
+                 <ul class="menu-content" style="">
+                   <li class="<?php echo (@$active_menu=='view_customer'?'active':'')?>"><a href="<?=site_url('Users/view_customers');?>" class="menu-item">View Customers</a>
+                   </li>
+                 </ul>
+             </li>
+             <li class="has-sub nav-item <?php echo (@$active_menu=='view_quotes' || @$active_menu=='add_quotes'?'open':'')?>"><a><i class="ft-users"></i><span data-i18n="" class="menu-title">Quotes</span></a>
+                  <ul class="menu-content" style="">
+                    <li class="<?php echo (@$active_menu=='add_quotes'?'active':'')?>"><a href="<?=site_url('Admin/add_quotes');?>" class="menu-item">Add Quotes</a>
+                    </li>
+                  </ul>
+                  <ul class="menu-content" style="">
+                    <li class="<?php echo (@$active_menu=='view_quotes'?'active':'')?>"><a href="<?=site_url('Admin/view_quotes');?>" class="menu-item">View Quotes</a>
+                    </li>
+                  </ul>
+              </li>
             <?php if($this->session->userdata('user_type') != 'admin') { ?>
               <li class=" nav-item <?php echo (@$active_menu=='sales'?'active':'')?>">
                 <a href="<?=site_url('sales/index');?>"><i class="ft-credit-card"></i><span data-i18n="" class="menu-title" style="font-size: 14px!important;">New Sale</span>
@@ -70,13 +90,7 @@
                   <li class="<?php echo (@$active_menu=='view_user'?'active':'')?>"><a href="<?=site_url('admin/view_users');?>" class="menu-item">View Users</a>
                   </li>
                 </ul>
-            </li>
-            <li class="has-sub nav-item <?php echo (@$active_menu=='view_userrolls' || @$active_menu=='view_userrolls'?'open':'')?>"><a><i class="ft-user"></i><span data-i18n="" class="menu-title">Users Rolls</span></a>
-                <ul class="menu-content" style="">
-                  <li class="<?php echo (@$active_menu=='add_userroll'?'active':'')?>"><a href="<?=site_url('admin/add_role');?>" class="menu-item">Add Users Rolls</a>
-                  </li>
-                </ul>
-                <ul class="menu-content" style="">
+                <ul class="menu-content">
                   <li class="<?php echo (@$active_menu=='view_userroll'?'active':'')?>"><a href="<?=site_url('admin/view_role');?>" class="menu-item">View Users Rolls</a>
                   </li>
                 </ul>
@@ -93,51 +107,31 @@
 </div>
 <!-- / main menu-->
 <div class="main-panel">
-
   <!-- Navbar (Header) Starts-->
-
   <nav class="navbar navbar-expand-lg navbar-light bg-faded">
-
     <div class="container-fluid">
-
       <div class="navbar-header">
-
         <button type="button" data-toggle="collapse" class="navbar-toggle d-lg-none float-left"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-
       </div>
-
       <div class="navbar-container">
-
         <div id="navbarSupportedContent" class="collapse navbar-collapse">
-
-
           <ul class="navbar-nav">
-
             <li class="dropdown nav-item">
               <a id="dropdownBasic3" href="#" data-toggle="dropdown" class="nav-link position-relative dropdown-toggle">
                 <i class="ft-user font-medium-3 blue-grey darken-4"></i>
-
                 <?=@$this->session->userdata('first_name').' '.@$this->session->userdata('last_name')?>
                 <p class="d-none">User Settings</p></a>
-
               <div ngbdropdownmenu="" aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
               <?php if (@$this->session->userdata('role') == 'customer'): ?>
                 <a href="<?=site_url('system_users/account_information')?>" class="dropdown-item"><i class="ft-edit mr-2"></i><span>Account Information</span></a>
               <?php endif ?>
                 <a href="<?=site_url('Auth/logout')?>" class="dropdown-item"><i class="ft-power mr-2"></i><span>Logout</span></a>
-
               </div>
-
             </li>
-
           </ul>
-
         </div>
-
       </div>
-
     </div>
-
   </nav>
 
   <!-- Navbar (Header) Ends-->

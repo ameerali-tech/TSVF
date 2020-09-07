@@ -21,27 +21,37 @@
                                     </div>
                                     <div class="col-xl-6 col-lg-4mb-1">
                                         <fieldset class="form-group">
-                                            <label for="basicInput">Size *</label>
-                                            <input type="number" class="form-control" placeholder="enter Size" required="" name="size" value="<?=@$form_data->size?>">
+                                            <label for="basicInput">Lot Size *</label>
+                                            <input type="number" class="form-control" placeholder="enter Size" required="" name="lot_size" value="<?=@$form_data->lot_size?>">
                                         </fieldset>
                                     </div>
                                     <div class="col-xl-6 col-lg-4mb-1">
                                         <fieldset class="form-group">
-                                            <label for="basicInput">Color *</label>
-                                            <input type="text" class="form-control" placeholder="enter color" required="" name="color" value="<?=@$form_data->color?>">
+                                            <label for="basicInput">Amount / Square meter *</label>
+                                            <input type="number" class="form-control" placeholder="enter Amount Per Square Meter" required="" name="amountpersquaremeter" value="<?=@$form_data->amountpersquaremeter?>">
                                         </fieldset>
                                     </div>
                                     <div class="col-xl-6 col-lg-4mb-1">
                                         <fieldset class="form-group">
-                                            <label for="basicInput">Weight *</label>
-                                            <input type="number" class="form-control" placeholder="enter weight" required="" name="weight" value="<?=@$form_data->weight?>">
+                                            <label for="basicInput">Cost *</label>
+                                            <input type="number" class="form-control" placeholder="enter cost" required="" name="cost" value="<?=@$form_data->cost?>">
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-xl-12 col-lg-6 col-md-12 mb-1">
+                                    <div class="col-xl-6 col-lg-4mb-1">
                                         <fieldset class="form-group">
-                                            <label for="basicInput">Notes </label>
-                                            <textarea class="form-control" placeholder="enter notes" rows="6" required=""  name="notes"><?=@$form_data->notes?></textarea>
+                                            <label for="basicInput">SKU *</label>
+                                          <input type="text" class="form-control" placeholder="enter sku" required="" name="sku" value="<?=@$form_data->sku?>">
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-4mb-1">
+                                        <fieldset class="form-group">
+                                            <label for="basicInput">Payment Terms *</label>
+                                            <select class="form-control" name="payment_term" placeholder="Select Payment Terms">
+                                              <option value="Down Payment">Down Payment</option>
+                                              <option value="Interest Per Annum">Interest Per Annum</option>
+                                              <option value="Months of Paymen">Months of Payment </option>
+                                            </select>
                                         </fieldset>
                                     </div>
                                 </div>

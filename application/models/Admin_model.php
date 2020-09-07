@@ -9,20 +9,23 @@ class Admin_model extends CI_Model
   // users query start
   public function get_Users()
   {
-    $this->db->select('*');
-        $this->db->from('users');
-        $this->db->where('users.user_type !=' ,'admin');
-        $this->db->order_by("users.id", "DESC");
-        $query = $this->db->get();
-        $result = $query->result();
-        return $result;
+      $this->db->select('*');
+      $this->db->from('users');
+      $this->db->join('role','users.user_role_id=role.role_id','LEFT');
+      $this->db->where('users.user_type !=' ,'admin');
+      $this->db->order_by("users.id", "DESC");
+
+
+      $query = $this->db->get();
+      $result = $query->result();
+      return $result;
   }
 
   public function uers_search($search_val, $status)
   {
     $this->db->select('*');
       $this->db->from('users');
-     
+
 
       $this->db->or_like('first_name', $search_val);
       $this->db->or_like('last_name', $search_val);
@@ -58,7 +61,7 @@ class Admin_model extends CI_Model
         return $result;
    }
 
-   
+
    public function getBillData($search_val='', $status='')
    {
       $this->db->select('purchase_bills.*,warehouse.warehouse_name');
@@ -90,19 +93,61 @@ class Admin_model extends CI_Model
 
    public function getSupplier($search_val='', $status='')
    {
-     $this->db->select('suppliers.*,warehouse.warehouse_name');
+     $this->db->select('*');
       $this->db->from('suppliers');
-      $this->db->join('warehouse','warehouse.id = suppliers.warehouse_id');
-      
+
       if (!empty($search_val)) {
-        $this->db->or_like('warehouse.warehouse_name', $search_val);
-        $this->db->or_like('items.name', $search_val);
-      }  
-      $this->db->order_by("suppliers.id", "DESC");
-  
+        $this->db->or_like('supplier_id', $search_val);
+        $this->db->or_like('supplier_name', $search_val);
+        $this->db->or_like('payment_method', $search_val);
+        $this->db->or_like('credit_days', $search_val);
+        $this->db->or_like('user_status', $search_val);
+        $this->db->or_like('contact_person', $search_val);
+        $this->db->or_like('city', $search_val);
+        $this->db->or_like('mobile_num', $search_val);
+        $this->db->or_like('address', $search_val);
+        $this->db->or_like('person_name', $search_val);
+        $this->db->or_like('person_designation', $search_val);
+        $this->db->or_like('person_number', $search_val);
+      }
+      $this->db->order_by("supplier_id", "DESC");
+
       $query = $this->db->get();
         $result = $query->result();
         return $result;
    }
-	
+   public function getQuotes($search_val='', $status='')
+   {
+     $this->db->select('*');
+      $this->db->from('quotes q');
+      $this->db->join('customers c','q.customer_id=c.customer_id');
+      $this->db->join('properties p','p.id=q.property_id');
+
+      if (!empty($search_val)) {
+        $this->db->or_like('quote_id', $search_val);
+        $this->db->or_like('first_name', $search_val);
+        $this->db->or_like('name', $search_val);
+        $this->db->or_like('total_amount', $search_val);
+        $this->db->or_like('payment_method', $search_val);
+        $this->db->or_like('notes', $search_val);
+      }
+      $this->db->order_by("quote_id", "DESC");
+
+      $query = $this->db->get();
+        $result = $query->result();
+        return $result;
+   }
+
+   public function get_quote_data($id)
+   {
+      $this->db->select('*');
+      $this->db->from('quotes q');
+      $this->db->join('customers c','q.customer_id=c.customer_id');
+      $this->db->join('properties p','p.id=q.property_id');
+      $this->db->where('q.quote_id',$id);
+      $query = $this->db->get();
+      $result = $query->result();
+      return $result;
+   }
+
 }

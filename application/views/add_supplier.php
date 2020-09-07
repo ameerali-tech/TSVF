@@ -5,12 +5,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0"><?=$title?></h4> 
+                    <h4 class="card-title mb-0"><?=$title?></h4>
                 </div>
                 <div class="card-body">
                     <div class="px-3">
                         <form class="form" action="<?=base_url();?>Supplier/save_supplier" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="user_id" value="<?=@$user_data->id?>">
+                            <input type="hidden" name="user_id" value="<?=@$user_data->supplier_id?>">
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-12 mb-1">
@@ -53,7 +53,7 @@
                                             <input type="text" class="form-control" placeholder="enter contact person" required="" name="contact_person" value="<?=@$user_data->contact_person?>">
                                         </fieldset>
                                     </div>
-                                    
+
                                     <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                         <fieldset class="form-group">
                                             <label for="basicInput">City *</label>

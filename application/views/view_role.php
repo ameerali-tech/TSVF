@@ -26,6 +26,9 @@
     border: none;
     border-bottom: 1px solid #ccc;
   }
+  .btnaddnew {
+    float:right;
+  }
 </style>
 <div class="main-content">
 
@@ -40,9 +43,13 @@
             <div class="card-header">
 
               <h4 class="card-title"><?=$title?> </h4>
-
+              <a href="<?=site_url('admin/add_role');?>" class="btnaddnew"><i class="icon-plus"></i> Add Users Rolls</a>
             </div> <br><br>
+            <div class="row">
+              <div class="col-md-8"></div>
+              <div class="col-md-4"></div>
 
+            </div>
             <div class="card-body">
 
               <div class="card-block mcontainer">
@@ -57,7 +64,7 @@
                         <tr>
                             <th width="100px">S.No</th>
                             <th>Role Name</th>
-                            <th width="150px">Actions</th> 
+                            <th width="150px">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,8 +73,8 @@
                         <td><?=++$i?></td>
                         <td><?=$value->role_name?></td>
                         <td>
-                          <a href="<?=base_url();?>admin/edit_role/<?=hashids_encrypt($value->id);?>" class="btn small-btn"><i class="icon-pencil"></i> Edit </a>
-                          <a href="<?=base_url();?>admin/delete_role/<?=hashids_encrypt($value->id);?>" class="btn small-btn" onclick="return confirm(Are you sure you want to delete?)"><i class="icon-trash"></i> Delete </a>
+                          <a href="<?=base_url();?>admin/edit_role/<?=hashids_encrypt($value->role_id);?>" class="btn small-btn"><i class="icon-pencil"></i> Edit </a>
+                          <a href="<?=base_url();?>admin/delete_role/<?=hashids_encrypt($value->role_id);?>" class="btn small-btn" onclick="return confirm(Are you sure you want to delete?)"><i class="icon-trash"></i> Delete </a>
                         </td>
                       </tr>
                   <?php } ?>
@@ -148,7 +155,7 @@
   $(document).ready(function(){
     //let status = $('#status').val();
     $('#orders').DataTable({
-      
+
     });
  });
 

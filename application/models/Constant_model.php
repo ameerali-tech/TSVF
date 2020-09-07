@@ -1,71 +1,70 @@
 <?php
 /**
-* 
+*
 */
 class Constant_model extends CI_Model
 {
-		
+
 		// Insert Data from Any Table;
 	public function insert_alltable($table_name,$data)
 	{
 		return $this->db->insert("$table_name", $data);
 	}
+	public function insertMultiple($multiple_arr, $tbl_name) {
+		$resp = $this->db->insert_batch($tbl_name, $multiple_arr);
+		return $resp;
+	}
 		// Get Data from Any Table;
 	public function get_alltable($table_name)
-	{  
+	{
         $this->db->from($table_name);
-        
+
 		$query = $this->db->get();
 		return $query->result();
 	}
         // Get Data from Any Table order by dec;
-    public function get_alltable_desc($table_name)
+    public function get_alltable_desc($col,$table_name)
     {
         $this->db->from($table_name);
-        
-        $this->db->order_by("id", "desc");
-        $query = $this->db->get(); 
+
+        $this->db->order_by($col, "desc");
+        $query = $this->db->get();
         return $query->result();
     }
+
 	 // Delete Data from Any Table;
-    public function deleteData($table, $id)
-    {
-        $this->db->where('id', $id);
-        $this->db->delete("$table");
-        return true;
-    }
-
-
-     // Delete Data from Any Table;
-    public function CustomDeleteData($table, $col_name ,$id)
+    public function deleteData($table,$col_name, $id)
     {
         $this->db->where($col_name, $id);
         $this->db->delete("$table");
         return true;
     }
-    
+
     public function insertDataReturnLastId($table, $data)
     {
         $this->db->insert("$table", $data);
         return $this->db->insert_id();
     }
-    
-   
+
 
 	public function getDataOneColumn($table, $col1_name, $col1_value)
     {
         $this->db->where("$col1_name", $col1_value);
-        
+
         $this->db->order_by("id", "desc");
         $query = $this->db->get("$table");
         $result = $query->result();
         return $result;
     }
+		
+		function getRows2($tbl,$column,$id){
+        $this->db->where($column,$id);
+        return $this->db->get($tbl)->result_array();
+    }
 
-    
-    public function updateData($table, $data, $id)
+    public function updateData($table, $data,$col,$id)
     {
-        $this->db->where('id', $id);
+        $this->db->where("$col", $id);
         $this->db->update("$table", $data);
         return true;
     }
@@ -79,11 +78,11 @@ class Constant_model extends CI_Model
     {
         $this->db->where("$col",$id);
         $this->db->limit('1');
-        $this->db->order_by('id','desc');
-        $query = $this->db->get("$table");    
+        $this->db->order_by("$col",'desc');
+        $query = $this->db->get("$table");
         return $query->row();
     }
-   
+
 
     public function get_users($value,$user_id)
     {
@@ -108,11 +107,11 @@ class Constant_model extends CI_Model
         return $result;
     }
 
-   
-   
 
-   
-    
+
+
+
+
 }
 
 ?>
