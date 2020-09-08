@@ -82,39 +82,38 @@
 
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="statusModal" tabindex="0" role="dialog" aria-labelledby="statusModalTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="width: 900px; margin-left: -100px">
-      <form class="" action="<?=site_url('admin/change_status')?>" method="post">
+<!-- Payment Modal -->
+<div class="modal fade" id="paymentModal" tabindex="0" role="dialog" aria-labelledby="statusModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="statusModalTitle">Change Status</h5>
+          <h5 class="modal-title" id="statusModalTitle">View Payments</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <input type="hidden" name="order_id" id="order_id">
-          <select class="form-control status_order" name="status" required>
-            <option> -- change status -- </option>
-            <option value="incoming">Incoming</option>
-            <option value="picked">Picked</option>
-            <option value="received">Received</option>
-            <option value="prepared">Prepared</option>
-            <option value="packed">Packed</option>
-            <option value="shipped">Shipped</option>
-          </select>
-          <div class="row item_god_bad mt-2">
-          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Payment_id</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody class="view_payment_details_">
+            </tbody>
+          </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
 
 <!-- viewModal -->
 <div class="modal fade" id="viewModal" tabindex="0" role="dialog" aria-labelledby="statusModalTitle" aria-hidden="true">
@@ -160,6 +159,36 @@
       $('.view_details_').html(data);
     }
    })
+ }
+ // Payment Modal
+ function showPaymentModal(id){
+   $('#paymentModal').modal('show');
 
+   $.ajax({
+    url : '<?=site_url('admin/view_payments_details/')?>'+id,
+    dataType : 'json',
+    success :function(data) {
+
+      var html='';
+      for (var i = 0; i < data.length; i++) {
+        var badgecolor=" ";
+        if (data[i].status=='upcoming') {
+          badgecolor='success';
+        }else if (data[i].status=='due') {
+          badgecolor='danger';
+        }
+        html+='<tr>'+
+        '<td>'+data[i].payment_id+'</td>'+
+        '<td>'+data[i].payment_date+'</td>'+
+        '<td>'+data[i].amount+'</td>'+
+        '<td><span class="badge badge-'+badgecolor+'">'+data[i].status+'<span></td>'+
+
+        '</tr>';
+      }
+
+      // console.log(data);
+      $('.view_payment_details_').html(html);
+    }
+   })
  }
 </script>

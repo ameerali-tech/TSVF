@@ -96,7 +96,7 @@
                                         <tbody>
                                           <tr>
                                             <td>Properties</td>
-                                            <input type="checkbox" name="products[module_component]" value="products" hidden="" checked="">
+                                            <input type="checkbox" name="products[module_component]" value="properties" hidden="" checked="">
                                             <td><input type="checkbox" name="products[view_status]" value="yes"></td>
                                             <td><input type="checkbox" name="products[add_status]" value="yes"></td>
                                             <td><input type="checkbox" name="products[edit_status]" value="yes"></td>
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Inventory Report</h3>
+                                        <h3>Quotes</h3>
                                     <table class="table table-bordered">
                                         <thead>
                                           <tr>
@@ -147,79 +147,18 @@
                                         </thead>
                                         <tbody>
                                           <tr>
-                                            <td>Properties List</td>
-                                            <input type="checkbox" name="product_list[module_component]" value="product_list" hidden="" checked="">
-                                            <td><input type="checkbox" name="product_list[view_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="product_list[add_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="product_list[edit_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="product_list[delete_status]" value="yes"></td>
-                                          </tr>
-                                          <tr>
-                                            <td>Properties Summary</td>
-                                            <input type="checkbox" name="product_summary[module_component]" value="product_summary" hidden="" checked="">
-                                            <td><input type="checkbox" name="product_summary[view_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="product_summary[add_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="product_summary[edit_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="product_summary[delete_status]" value="yes"></td>
+                                            <td>Quotes</td>
+                                            <input type="checkbox" name="quotes[module_component]" value="quotes" hidden="" checked="">
+                                            <td><input type="checkbox" name="quotes[view_status]" value="yes"></td>
+                                            <td><input type="checkbox" name="quotes[add_status]" value="yes"></td>
+                                            <td><input type="checkbox" name="quotes[edit_status]" value="yes"></td>
+                                            <td><input type="checkbox" name="quotes[delete_status]" value="yes"></td>
                                           </tr>
                                         </tbody>
                                     </table>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Supplier Report</h3>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                          <tr>
-                                            <th>Module Component</th>
-                                            <th>View</th>
-                                            <th>Add</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <td>Supplier List</td>
-                                            <input type="checkbox" name="supplier_list[module_component]" value="supplier_list" hidden="" checked="">
-                                            <td><input type="checkbox" name="supplier_list[view_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="supplier_list[add_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="supplier_list[edit_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="supplier_list[delete_status]" value="yes"></td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Customer Report</h3>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                          <tr>
-                                            <th>Module Component</th>
-                                            <th>View</th>
-                                            <th>Add</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>
-                                            <td>Customer List</td>
-                                            <input type="checkbox" name="customer_list[module_component]" value="customer_list" hidden="" checked="">
-                                            <td><input type="checkbox" name="customer_list[view_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="customer_list[add_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="customer_list[edit_status]" value="yes"></td>
-                                            <td><input type="checkbox" name="customer_list[delete_status]" value="yes"></td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                                <div class="form-actions">
+                            <div class="form-actions">
                                 <div class="text-right">
                                     <button type="Submit" class="btn btn-raised btn-primary">Submit <i class="ft-thumbs-up position-right"></i></button>
                                     <button type="reset" class="btn btn-raised btn-warning">Reset <i class="ft-refresh-cw position-right"></i></button>

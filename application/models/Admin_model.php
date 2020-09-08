@@ -150,4 +150,18 @@ class Admin_model extends CI_Model
       return $result;
    }
 
+   public function get_payment_details($id)
+   {
+     $this->db->select('*');
+     $this->db->from('payments');
+     $this->db->where('quote_id',$id);
+     $query = $this->db->get();
+     $result = $query->result();
+     return $result;
+   }
+
+   public function updateOrders($arr, $id) {
+     return $this->db->update_batch('payments', $arr,'quote_id');
+   }
+
 }

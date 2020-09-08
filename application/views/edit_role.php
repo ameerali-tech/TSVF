@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="px-3">
                         <form class="form" method="post" action="<?=base_url();?>admin/update_role">
-                            <input type="hidden" name="role_id" value="<?=hashids_encrypt(@$role_name->id)?>">
+                            <input type="hidden" name="role_id" value="<?=hashids_encrypt(@$role_name->role_id)?>">
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-xl-6 col-lg-6 col-md-12 mb-1">
@@ -20,38 +20,6 @@
                                         </fieldset>
                                     </div>
                                 </div>
-                            <?php foreach ($role_data as $value) { 
-                            	if ($value->module_component == 'main_dasboard') {?>    
-                                <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Dasboard</h3>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                          <tr>
-                                            <th>Module Component</th>
-                                            <th>View</th>
-                                            <th>Add</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          <tr>  
-                                            <td>Main Dashboard</td>
-                                            <input type="checkbox" name="main_dasboard[module_component]" value="main_dasboard" hidden="" checked="">
-                                            <td><input type="checkbox" name="main_dasboard[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="main_dasboard[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="main_dasboard[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="main_dasboard[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                            <?php }
-
-                        } ?>    
-
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
                                         <h3>Configurations </h3>
@@ -67,7 +35,7 @@
                                         </thead>
                                         <tbody>
                                     <?php foreach ($role_data as $value) {
-                                    	if ($value->module_component == 'users') { ?>    	 
+                                    	if ($value->module_component == 'users') { ?>
                                           <tr>
                                             <td>Users</td>
                                             <input type="checkbox" name="users[module_component]" value="users" hidden="" checked="">
@@ -85,15 +53,6 @@
                                             <td><input type="checkbox" name="user_roles[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
                                             <td><input type="checkbox" name="user_roles[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
                                           </tr>
-                                      <?php }if ($value->module_component == 'warehouse') { ?>
-                                          <tr>
-                                            <td>Warehouse</td>
-                                            <input type="checkbox" name="warehouse[module_component]" value="warehouse" hidden="" checked="">
-                                            <td><input type="checkbox" name="warehouse[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="warehouse[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="warehouse[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="warehouse[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
                                       <?php }} ?>
                                         </tbody>
                                     </table>
@@ -101,7 +60,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Sale Order</h3>
+                                        <h3>Customer</h3>
                                     <table class="table table-bordered">
                                         <thead>
                                           <tr>
@@ -113,16 +72,7 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                    <?php foreach ($role_data as $value) { if ($value->module_component == 'sale_order') {?>    	
-                                          <tr>
-                                            <td>Sale Order</td>
-                                            <input type="checkbox" name="sale_order[module_component]" value="sale_order" hidden="" checked="">
-                                            <td><input type="checkbox" name="sale_order[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="sale_order[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="sale_order[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="sale_order[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }if ($value->module_component == 'customers') { ?>
+                                    <?php foreach ($role_data as $value) { if ($value->module_component == 'customers') { ?>
                                           <tr>
                                             <td>Customers</td>
                                             <input type="checkbox" name="customers[module_component]" value="customers" hidden="" checked="">
@@ -130,7 +80,7 @@
                                             <td><input type="checkbox" name="customers[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
                                             <td><input type="checkbox" name="customers[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
                                             <td><input type="checkbox" name="customers[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr> 
+                                          </tr>
                                       <?php }} ?>
                                         </tbody>
                                     </table>
@@ -150,22 +100,13 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                    <?php foreach ($role_data as $value) { if ($value->module_component == 'products') {?>      <tr>
+                                    <?php foreach ($role_data as $value) { if ($value->module_component == 'properties') {?>      <tr>
                                             <td>Properties</td>
-                                            <input type="checkbox" name="products[module_component]" value="products" hidden="" checked="">
-                                            <td><input type="checkbox" name="products[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="products[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="products[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="products[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }if ($value->module_component == 'product_adjustments') { ?>
-                                          <tr>
-                                            <td>Product Adjustments</td>
-                                            <input type="checkbox" name="product_adjustments[module_component]" value="product_adjustments" hidden="" checked="">
-                                            <td><input type="checkbox" name="product_adjustments[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_adjustments[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_adjustments[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_adjustments[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
+                                            <input type="checkbox" name="properties[module_component]" value="properties" hidden="" checked="">
+                                            <td><input type="checkbox" name="properties[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
+                                            <td><input type="checkbox" name="properties[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
+                                            <td><input type="checkbox" name="properties[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
+                                            <td><input type="checkbox" name="properties[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
                                           </tr>
                                       <?php }} ?>
                                       </tbody>
@@ -174,7 +115,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Purchase Order</h3>
+                                        <h3>Supplier</h3>
                                     <table class="table table-bordered">
                                         <thead>
                                           <tr>
@@ -186,15 +127,7 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                    <?php foreach ($role_data as $value) { if ($value->module_component == 'purchase_order') {?>    	<tr>
-                                            <td>Purchase Order</td>
-                                            <input type="checkbox" name="purchase_order[module_component]" value="purchase_order" hidden="" checked="">
-                                            <td><input type="checkbox" name="purchase_order[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="purchase_order[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="purchase_order[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="purchase_order[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }if ($value->module_component == 'suppliers') { ?>
+                                    <?php foreach ($role_data as $value) { if ($value->module_component == 'suppliers') { ?>
                                           <tr>
                                             <td>Suppliers</td>
                                             <input type="checkbox" name="suppliers[module_component]" value="suppliers" hidden="" checked="">
@@ -203,15 +136,6 @@
                                             <td><input type="checkbox" name="suppliers[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
                                             <td><input type="checkbox" name="suppliers[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
                                           </tr>
-                                      <?php }if ($value->module_component == 'return_purchase_order') { ?>
-                                          <tr>
-                                            <td>Return Purchase Order</td>
-                                            <input type="checkbox" name="return_purchase_order[module_component]" value="return_purchase_order" hidden="" checked="">
-                                            <td><input type="checkbox" name="return_purchase_order[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="return_purchase_order[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="return_purchase_order[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="return_purchase_order[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
                                       <?php }} ?>
                                         </tbody>
                                     </table>
@@ -219,7 +143,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Inventory Report</h3>
+                                        <h3>Quotes</h3>
                                     <table class="table table-bordered">
                                         <thead>
                                           <tr>
@@ -231,152 +155,14 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                        	<?php foreach ($role_data as $value) { if ($value->module_component == 'product_list') {?>
+                                    <?php foreach ($role_data as $value) { if ($value->module_component == 'quotes') { ?>
                                           <tr>
-                                            <td>Product List</td>
-                                            <input type="checkbox" name="product_list[module_component]" value="product_list" hidden="" checked="">
-                                            <td><input type="checkbox" name="product_list[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_list[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_list[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_list[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }if ($value->module_component == 'inventory_stock') {?>
-                                          <tr>
-                                            <td>Inventory Stock</td>
-                                            <input type="checkbox" name="inventory_stock[module_component]" value="inventory_stock" hidden="" checked="">
-                                            <td><input type="checkbox" name="inventory_stock[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="inventory_stock[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="inventory_stock[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="inventory_stock[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }if ($value->module_component == 'inventory_summary') {?>
-                                          <tr>
-                                            <td>Inventory Summary</td>
-                                            <input type="checkbox" name="inventory_summary[module_component]" value="inventory_summary" hidden="" checked="">
-                                            <td><input type="checkbox" name="inventory_summary[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="inventory_summary[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="inventory_summary[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="inventory_summary[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }if ($value->module_component == 'product_summary') {?>
-                                          <tr>
-                                            <td>Product Summary</td>
-                                            <input type="checkbox" name="product_summary[module_component]" value="product_summary" hidden="" checked="">
-                                            <td><input type="checkbox" name="product_summary[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_summary[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_summary[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="product_summary[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }} ?>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Supplier Report</h3>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                          <tr>
-                                            <th>Module Component</th>
-                                            <th>View</th>
-                                            <th>Add</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                        	<?php foreach ($role_data as $value) { if ($value->module_component == 'supplier_ledger') {?>
-                                          <tr>
-                                            <td>Supplier Ledger</td>
-                                            <input type="checkbox" name="supplier_ledger[module_component]" value="supplier_ledger" hidden="" checked="">
-                                            <td><input type="checkbox" name="supplier_ledger[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="supplier_ledger[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="supplier_ledger[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="supplier_ledger[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }if ($value->module_component == 'supplier_list') { ?>
-                                          <tr>
-                                            <td>Supplier List</td>
-                                            <input type="checkbox" name="supplier_list[module_component]" value="supplier_list" hidden="" checked="">
-                                            <td><input type="checkbox" name="supplier_list[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="supplier_list[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="supplier_list[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="supplier_list[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }} ?>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Purchase Report</h3>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                          <tr>
-                                            <th>Module Component</th>
-                                            <th>View</th>
-                                            <th>Add</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                        	<?php foreach ($role_data as $value) { if ($value->module_component == 'purchase_order') {?>
-                                          <tr>
-                                            <td>Purchase order</td>
-                                            <input type="checkbox" name="purchase_order_report[module_component]" value="purchase_order_report" hidden="" checked="">
-                                            <td><input type="checkbox" name="purchase_order_report[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="purchase_order_report[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="purchase_order_report[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="purchase_order_report[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                          <?php }if ($value->module_component == 'return_purchase_order') {?> 
-                                          <tr>
-                                            <td>Return Purchase Order</td>
-                                            <input type="checkbox" name="return_purchase_order_report[module_component]" value="return_purchase_order_report" hidden="" checked="">
-                                            <td><input type="checkbox" name="return_purchase_order_report[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="return_purchase_order_report[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="return_purchase_order_report[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="return_purchase_order_report[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }} ?>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
-                                        <h3>Customer Report</h3>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                          <tr>
-                                            <th>Module Component</th>
-                                            <th>View</th>
-                                            <th>Add</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                        	<?php foreach ($role_data as $value) { if ($value->module_component == 'customer_ledger') {?>
-                                          <tr>
-                                            <td>Customer Ledger</td>
-                                            <input type="checkbox" name="customer_ledger[module_component]" value="customer_ledger" hidden="" checked="">
-                                            <td><input type="checkbox" name="customer_ledger[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="customer_ledger[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="customer_ledger[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="customer_ledger[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
-                                          </tr>
-                                      <?php }if ($value->module_component == 'customer_list') {?>
-                                          <tr>
-                                            <td>Customer List</td>
-                                            <input type="checkbox" name="customer_list[module_component]" value="customer_list" hidden="" checked="">
-                                            <td><input type="checkbox" name="customer_list[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="customer_list[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="customer_list[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
-                                            <td><input type="checkbox" name="customer_list[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
+                                            <td>Quotes</td>
+                                            <input type="checkbox" name="quotes[module_component]" value="quotes" hidden="" checked="">
+                                            <td><input type="checkbox" name="quotes[view_status]" value="yes" <?php echo ($value->view_status =='yes'?'checked':'')?>></td>
+                                            <td><input type="checkbox" name="quotes[add_status]" value="yes" <?php echo ($value->add_status =='yes'?'checked':'')?>></td>
+                                            <td><input type="checkbox" name="quotes[edit_status]" value="yes"  <?php echo ($value->edit_status =='yes'?'checked':'')?>></td>
+                                            <td><input type="checkbox" name="quotes[delete_status]" value="yes" <?php echo ($value->delete_status =='yes'?'checked':'')?>></td>
                                           </tr>
                                       <?php }} ?>
                                         </tbody>

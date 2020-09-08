@@ -56,7 +56,7 @@ class Constant_model extends CI_Model
         $result = $query->result();
         return $result;
     }
-		
+
 		function getRows2($tbl,$column,$id){
         $this->db->where($column,$id);
         return $this->db->get($tbl)->result_array();
@@ -107,7 +107,12 @@ class Constant_model extends CI_Model
         return $result;
     }
 
-
+		public function CustomDeleteData($table_name,$col,$id)
+		{
+			$query = "DELETE FROM `" . $table_name . "` WHERE `" . $col . "`=" . $this->db->escape($id) . "";
+			$result = $this->db->query($query);
+			return $result;
+		}
 
 
 

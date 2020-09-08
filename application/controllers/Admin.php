@@ -58,30 +58,41 @@ class Admin extends CI_Controller {
       $payment_date=$this->input->post('payment_date');
       $amount=$this->input->post('amount');
       $status=$this->input->post('status');
-
+      $quote_id=$this->input->post('quote_id');
       // echo "<pre>";print_r($data); echo "<br>";
+      if (empty($quote_id)) {
+        $id = $this->Constant_model->insertDataReturnLastId('quotes',$data);
+           $more_arr=[];
+           for($f=0;$f<count($payment_date);$f++){
+             $more_arr[$f]=[
+                 'quote_id'=>$id,
+                 'payment_date' => $payment_date[$f],
+                 'amount' => $amount[$f],
+                 'status' => $status[$f],
+             ];
+           }
+            $this->Constant_model->insertMultiple($more_arr, 'payments');
+            $this->session->set_flashdata(array('response' => 'success', 'msg' => "Quote Added successfully!"));
+         }else {
+           $res = $this->Constant_model->updateData('quotes', $data,'quote_id',$quote_id);
+           $more_arr=[];
+           for($f=0;$f<count($payment_date);$f++){
+             $more_arr[$f]=[
+                 'quote_id'=>$quote_id,
+                 'payment_date' => $payment_date[$f],
+                 'amount' => $amount[$f],
+                 'status' => $status[$f],
+             ];
+           }
+           $resp = $this->admin_model->updateOrders($more_arr, $quote_id);
+           $this->session->set_flashdata(array('response' => 'success', 'msg' => "Quote Updated successfully!"));
 
-      $id = $this->Constant_model->insertDataReturnLastId('quotes',$data);
-      $id=1;
-         $more_arr=[];
-         for($f=0;$f<count($payment_date);$f++){
-           $more_arr[$f]=[
-               'quote_id'=>$id,
-               'payment_date' => $payment_date[$f],
-               'amount' => $amount[$f],
-               'status' => $status[$f],
-           ];
          }
-         // echo "<pre>";print_r($more_arr);exit;
-         $this->Constant_model->insertMultiple($more_arr, 'payments');
 
-         $msg = "Quote Added Successfully!";
-      if (empty($_POST['quote_id'])) {
-        $this->session->set_flashdata(array('response' => 'success', 'msg' => "Quote Added successfully!"));
-      }else{
-        $res = $this->Constant_model->updateData('quotes', $data,'quote_id',$_POST['quote_id']);
-        $this->session->set_flashdata(array('response' => 'success', 'msg' => "Quote Added successfully!"));
-      }
+
+
+
+
 
           return redirect(base_url().'admin/view_quotes');
     }
@@ -135,6 +146,7 @@ class Admin extends CI_Controller {
           $sub_array[] = $value->payment_method;
           $sub_array[] = $value->notes;
          // / $sub_array[] = get_date($value->created_at);
+          $buttons .= "<a href='javascript:void(0)' onclick='showPaymentModal(".$value->quote_id.")' class='btn small-btn'><i class='icon-book-open'></i> Payments </a>";
           $buttons .= "<a href='javascript:void(0)' onclick='showViewModal(".$value->quote_id.")' class='btn small-btn'><i class='icon-eye'></i> View </a>";
           $buttons .= "<a href='".site_url('Admin/edit_quotes/'.hashids_encrypt($value->quote_id))."' class='btn small-btn'><i class='icon-pencil'></i> Edit </a>
          <a href='".site_url('Supplier/delete_supplier/'.hashids_encrypt(@$value->quote_id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
@@ -155,6 +167,11 @@ class Admin extends CI_Controller {
     {
 
     }
+    public function view_payments_details($id)
+    {
+      $data=$this->admin_model->get_payment_details($id);
+      echo json_encode($data);
+    }
 
     public function view_details_popup($id) {
       $data = array(
@@ -162,10 +179,7 @@ class Admin extends CI_Controller {
         "record" => $this->admin_model->get_quote_data($id),
       );
       $data=$this->load->view("quote_details_popup",$data,TRUE);
-
-      // print_r($html);
       echo json_encode($data);
-
 
     }
 
@@ -185,8 +199,7 @@ class Admin extends CI_Controller {
     }
 
     public function save_role()
-    { //echo "<pre>";
-      // print_r($_POST); die();
+    {
       $i=0;
       $role_data = array('role_name' => $_POST['role_name']);
       $id = $this->Constant_model->insertDataReturnLastId('role', $role_data);
@@ -238,12 +251,12 @@ class Admin extends CI_Controller {
       $id = hashids_decrypt($_POST['role_id']);
       $this->Constant_model->CustomDeleteData('role_permission','role_id',$id);
       $role_data = array('role_name' => $_POST['role_name']);
-      $this->Constant_model->updateData('role', $role_data, $id);
+      $this->Constant_model->updateData('role', $role_data,'role_id', $id);
       foreach ($_POST as $key => $value) {
         if ($key != 'role_id' && $key != 'role_name') {
           $data = array(
             'role_id' => $id,
-          ); //print_r($value);
+          );
           $role_permission = array_merge($data,$value);
           $this->Constant_model->insert_alltable('role_permission',$role_permission);
         }
@@ -303,7 +316,6 @@ class Admin extends CI_Controller {
         $this->session->set_flashdata(array('response' => 'success', 'msg' => "Users Added successfully!"));
       }
           return redirect(base_url().'admin/view_users');
-
     }
 
     public function view_users()

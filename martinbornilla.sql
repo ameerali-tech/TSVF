@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2020 at 12:52 AM
+-- Generation Time: Sep 08, 2020 at 10:31 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -88,8 +88,10 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`payment_id`, `quote_id`, `payment_date`, `amount`, `status`) VALUES
-(1, 1, '2020-09-10', 1000, 'upcoming'),
-(2, 1, '2020-10-10', 1000, 'upcoming');
+(1, 1, '2020-09-10', 1200, 'upcoming'),
+(2, 1, '2020-09-10', 1200, 'upcoming'),
+(3, 2, '2020-09-10', 1100, 'upcoming'),
+(4, 2, '2020-10-10', 1100, 'upcoming');
 
 -- --------------------------------------------------------
 
@@ -135,7 +137,8 @@ CREATE TABLE `quotes` (
 --
 
 INSERT INTO `quotes` (`quote_id`, `customer_id`, `property_id`, `total_amount`, `payment_method`, `notes`) VALUES
-(1, 1, 8, 10000, 'check', 'this is a good property');
+(1, 1, 8, 10000, 'cash', ' this is a good property  '),
+(2, 1, 8, 10000, 'check', '                                              this is a good property                                            ');
 
 -- --------------------------------------------------------
 
@@ -153,7 +156,7 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`role_id`, `role_name`) VALUES
-(5, 'accountant');
+(6, 'admin');
 
 -- --------------------------------------------------------
 
@@ -176,15 +179,12 @@ CREATE TABLE `role_permission` (
 --
 
 INSERT INTO `role_permission` (`id`, `role_id`, `module_component`, `view_status`, `add_status`, `edit_status`, `delete_status`) VALUES
-(31, 5, 'users', '', '', '', ''),
-(32, 5, 'user_roles', '', '', '', ''),
-(33, 5, 'customers', '', '', '', ''),
-(34, 5, 'products', 'yes', 'yes', 'yes', 'yes'),
-(35, 5, 'suppliers', 'yes', 'yes', 'yes', 'yes'),
-(36, 5, 'product_list', '', '', '', ''),
-(37, 5, 'product_summary', '', '', '', ''),
-(38, 5, 'supplier_list', '', '', '', ''),
-(39, 5, 'customer_list', '', '', '', '');
+(76, 6, 'users', 'yes', 'yes', 'yes', 'yes'),
+(77, 6, 'user_roles', 'yes', 'yes', 'yes', 'yes'),
+(78, 6, 'customers', 'yes', 'yes', 'yes', 'yes'),
+(79, 6, 'properties', 'yes', 'yes', 'yes', 'yes'),
+(80, 6, 'suppliers', 'yes', 'yes', 'yes', 'yes'),
+(81, 6, 'quotes', 'yes', 'yes', 'yes', 'yes');
 
 -- --------------------------------------------------------
 
@@ -260,7 +260,7 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`supplier_id`, `supplier_name`, `payment_method`, `credit_days`, `user_status`, `contact_person`, `city`, `mobile_num`, `address`, `person_name`, `person_designation`, `person_number`) VALUES
-(1, 'fardeen', 'Online Transfer', '30', 'active', 'Fardeen', 'Hyderabad', '03073500573', 'qasmabad', 'Fardeen khan', 'CEO', '03123456789');
+(1, 'fardeen', 'Online Transfer', '30', 'active', 'Fardeen', 'Hyderabad', '03073500574', 'qasmabad', 'Fardeen khan', 'CEO', '03123456789');
 
 -- --------------------------------------------------------
 
@@ -276,7 +276,7 @@ CREATE TABLE `users` (
   `ph_num` varchar(50) NOT NULL,
   `username` varchar(225) NOT NULL,
   `password` varchar(225) NOT NULL,
-  `user_type` enum('admin','employee') NOT NULL,
+  `user_type` enum('admin','user') NOT NULL,
   `user_role_id` int(11) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1 COMMENT '1 = active, 0= inactive ',
   `low_stock_qty` int(11) NOT NULL,
@@ -289,8 +289,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `ph_num`, `username`, `password`, `user_type`, `user_role_id`, `status`, `low_stock_qty`, `created_at`, `deleted_at`) VALUES
-(1, 'Super', 'Admin', 'super@admin.com', '', 'admin', '27474ef2a683747b3a3961c96a6a152486ed0a0ea9cefdf7592c2383c3efa9a4497cb014efba80801d920a863bb6359584fb189a59db834d39638908ec2d1940e4BF8FlGj0V7OnDr9YZEFLBnLRqlBZBN9s5qwqQGPQY=', 'admin', 1, 1, 4, '2020-08-08 04:29:20', NULL),
-(11, 'Talha', 'myshopuser', 'myshopuser@email.com', 'myshopuser@email.com', 'myshopuser', '1e710c864a1ec1fe1168ca9b5b291102e42ded01fe35557947fdbf5fe0a96b265740104435ce454f5253c1ddc92fa9aeecd1a96368a61f765e8d0a8034d51180uds+32PGUVl2AHBRfjT1Ba7mgWqRBSUzNfOql9F1+sc=', 'employee', 5, 1, 0, '2020-08-21 21:59:24', NULL);
+(1, 'Super', 'Admin', 'super@admin.com', '', 'admin', '27474ef2a683747b3a3961c96a6a152486ed0a0ea9cefdf7592c2383c3efa9a4497cb014efba80801d920a863bb6359584fb189a59db834d39638908ec2d1940e4BF8FlGj0V7OnDr9YZEFLBnLRqlBZBN9s5qwqQGPQY=', 'admin', 6, 1, 4, '2020-08-08 04:29:20', NULL),
+(11, 'Talha', 'myshopuser', 'myshopuser@email.com', 'myshopuser@email.com', 'myshopuser', '1e710c864a1ec1fe1168ca9b5b291102e42ded01fe35557947fdbf5fe0a96b265740104435ce454f5253c1ddc92fa9aeecd1a96368a61f765e8d0a8034d51180uds+32PGUVl2AHBRfjT1Ba7mgWqRBSUzNfOql9F1+sc=', 'admin', 5, 1, 0, '2020-08-21 21:59:24', NULL);
 
 --
 -- Indexes for dumped tables
@@ -382,7 +382,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `properties`
@@ -394,19 +394,19 @@ ALTER TABLE `properties`
 -- AUTO_INCREMENT for table `quotes`
 --
 ALTER TABLE `quotes`
-  MODIFY `quote_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `quote_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `role_permission`
 --
 ALTER TABLE `role_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `sales`

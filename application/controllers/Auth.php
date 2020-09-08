@@ -9,7 +9,7 @@ class Auth extends CI_Controller {
         parent::__construct();
 
         $this->load->model('Auth_model');
-       // $this->load->model('Constant_model');
+       $this->load->model('Constant_model');
     }
 	public function index()
 	{
@@ -32,19 +32,17 @@ class Auth extends CI_Controller {
 			if ($res['valid']) {
 				$user_data = array(
 					'user_id' =>$res['user_id'] ,
-          // 'warehouse_id' => $res['warehouse_id'],
           'username' =>$res['username'] ,
           'first_name' =>$res['first_name'],
           'last_name' =>$res['last_name'],
           'email' =>$res['email'],
           'user_type' =>$res['user_type'],
+					'user_role_id' =>$res['user_role_id'],
           'status' =>$res['status'],
-          // 'low_stock_qty' =>$res['low_stock_qty'],
+					'userpermissions'=>$this->Constant_model->getRows2('role_permission','role_id',$res['user_role_id']),
 				);
-
-
-				 if($user_data['user_type'] != "admin" ) {
-					 $this->session->set_flashdata('alert_msg', array('failure', 'in', "You are not linked to any Shop please ask your admin to assign you to a Shop"));
+				 if(empty($user_data['user_type'])) {
+					 $this->session->set_flashdata('alert_msg', array('failure', 'in', "You are not authorized to login please ask your admin"));
 									 return redirect(base_url().'Auth');
 				 }
 
