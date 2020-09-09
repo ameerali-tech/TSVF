@@ -4,7 +4,9 @@
 class Admin extends CI_Controller {
     function __construct() {
 
+
         parent::__construct();
+
         if (empty($_SESSION['username'])) {
             return redirect(base_url().'auth');
         }
@@ -14,6 +16,7 @@ class Admin extends CI_Controller {
 
     public function dashboard()
     {
+
       if($this->session->userdata('user_type') != "admin") {
         redirect('Items/inventory');
       }

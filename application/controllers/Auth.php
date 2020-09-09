@@ -41,6 +41,7 @@ class Auth extends CI_Controller {
           'status' =>$res['status'],
 					'userpermissions'=>$this->Constant_model->getRows2('role_permission','role_id',$res['user_role_id']),
 				);
+
 				 if(empty($user_data['user_type'])) {
 					 $this->session->set_flashdata('alert_msg', array('failure', 'in', "You are not authorized to login please ask your admin"));
 									 return redirect(base_url().'Auth');
