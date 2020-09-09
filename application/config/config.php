@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$config['base_url'] = "https://projects.alphinex.com/corner_stones/";
-// $config['base_url'] = "http://localhost/martinbornilla/";
+// $config['base_url'] = "https://projects.alphinex.com/corner_stones/";
+$config['base_url'] = "http://localhost/martinbornilla/";
 
 $config['index_page'] = '';
 

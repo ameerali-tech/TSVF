@@ -14,8 +14,10 @@ class Supplier extends CI_Controller {
 
     public function add_supplier()
     {
-     // echo "<pre>"; print_r($_SESSION); exit();
-      $data = array(
+      if ($this->session->userdata('userpermissions')[4]['add_status']=='') {
+        redirect('Admin/dashboard');
+      }
+       $data = array(
         'title' => 'Add Supplier',
         'active_menu' => 'add_supplier',
       );
@@ -57,6 +59,9 @@ class Supplier extends CI_Controller {
 
     public function view_supplier($value='')
     {
+      if ($this->session->userdata('userpermissions')[4]['view_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $data = array(
         'title' => 'View Supplier',
         'active_menu' => 'view_supplier'
@@ -115,6 +120,9 @@ class Supplier extends CI_Controller {
 
     public function edit_supplier($id)
     {
+      if ($this->session->userdata('userpermissions')[4]['edit_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $id = hashids_decrypt($id);
       $data = array(
         'title' => 'Edit Supplier',
@@ -129,38 +137,15 @@ class Supplier extends CI_Controller {
 
     public function delete_supplier($id)
     {
+      if ($this->session->userdata('userpermissions')[4]['delete_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $id = hashids_decrypt($id);
       $res = $this->Constant_model->deleteData('suppliers','supplier_id',$id);
       $this->session->set_flashdata(array('response' => 'success', 'msg' => "Deleted Item successfully!"));
         return redirect(base_url().'Supplier/view_supplier');
     }
 
-    public function purchase_bills()
-    {
-      $data = array(
-        'title' => 'Purchase Bills',
-        'active_menu' => 'purchase_bills'
-      );
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
-      $this->load->view('purchase_bills');
-      $this->load->view('footer');
-    }
-
-    public function add_purchase_bills()
-    {
-      $data = array(
-        'title' => 'Add Purchase Bill',
-        'active_menu' => 'purchase_bills',
-        'warehouse_data' => $this->Constant_model->get_alltable_desc('warehouse'),
-        'suppliers_data' => $this->Constant_model->get_alltable_desc('suppliers'),
-        'products' => $this->Constant_model->get_alltable_desc('items')
-      );
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
-      $this->load->view('add_purchase_bills');
-      $this->load->view('footer');
-    }
 }
 
 ?>

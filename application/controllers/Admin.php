@@ -16,11 +16,6 @@ class Admin extends CI_Controller {
 
     public function dashboard()
     {
-
-      if($this->session->userdata('user_type') != "admin") {
-        redirect('Items/inventory');
-      }
-
       $data = array(
         'title' => 'Dashboard',
         'active_menu' => 'dashboard',
@@ -36,6 +31,9 @@ class Admin extends CI_Controller {
 
     public function add_quotes()
     {
+      if ($this->session->userdata('userpermissions')[5]['add_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $data = array(
         'title' => 'Add Quotes',
         'active_menu' => 'add_quotes',
@@ -91,17 +89,14 @@ class Admin extends CI_Controller {
            $this->session->set_flashdata(array('response' => 'success', 'msg' => "Quote Updated successfully!"));
 
          }
-
-
-
-
-
-
           return redirect(base_url().'admin/view_quotes');
     }
 
     public function edit_quotes($id)
     {
+      if ($this->session->userdata('userpermissions')[5]['edit_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $id = hashids_decrypt($id);
       $data = array(
         'title' => 'Edit Quotes',
@@ -120,6 +115,9 @@ class Admin extends CI_Controller {
 
     public function view_quotes()
     {
+      if ($this->session->userdata('userpermissions')[5]['view_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $data = array(
         'title' => 'View Quotes',
         'active_menu' => 'view_quotes',
@@ -152,7 +150,7 @@ class Admin extends CI_Controller {
           $buttons .= "<a href='javascript:void(0)' onclick='showPaymentModal(".$value->quote_id.")' class='btn small-btn'><i class='icon-book-open'></i> Payments </a>";
           $buttons .= "<a href='javascript:void(0)' onclick='showViewModal(".$value->quote_id.")' class='btn small-btn'><i class='icon-eye'></i> View </a>";
           $buttons .= "<a href='".site_url('Admin/edit_quotes/'.hashids_encrypt($value->quote_id))."' class='btn small-btn'><i class='icon-pencil'></i> Edit </a>
-         <a href='".site_url('Supplier/delete_supplier/'.hashids_encrypt(@$value->quote_id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
+         <a href='".site_url('Admin/delete_quotes/'.hashids_encrypt(@$value->quote_id))."' class='btn small-btn' onclick='return confirm(Are you sure you want to delete?)''><i class='icon-trash'></i> Delete </a>";
           $sub_array[] = $buttons;
           $data[] = $sub_array;
           $sno++;
@@ -166,9 +164,18 @@ class Admin extends CI_Controller {
         echo json_encode($output);
     }
 
-    public function delete_quotes()
+    public function delete_quotes($id)
     {
-
+      if ($this->session->userdata('userpermissions')[5]['add_status']=='') {
+        redirect('Admin/dashboard');
+      }
+      $id = hashids_decrypt($id);
+      $this->Constant_model->CustomDeleteData('payments','quote_id',$id);
+      $res = $this->Constant_model->deleteData('quotes','quote_id',$id);
+      if ($res) {
+        $this->session->set_flashdata(array('response' => 'success', 'msg' => "Quote deleted successfully!"));
+        return redirect(base_url().'admin/view_quotes');
+      }
     }
     public function view_payments_details($id)
     {
@@ -191,6 +198,9 @@ class Admin extends CI_Controller {
     // role Controller
     public function add_role()
     {
+      if ($this->session->userdata('userpermissions')[0]['add_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $data = array(
         'title' => 'Add Role',
         'active_menu' => 'add_role',
@@ -223,6 +233,9 @@ class Admin extends CI_Controller {
 
     public function view_role($value='')
     {
+      if ($this->session->userdata('userpermissions')[0]['view_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $data = array(
         'title' => 'Role List',
         'active_menu' => 'view_role',
@@ -236,6 +249,9 @@ class Admin extends CI_Controller {
 
     public function edit_role($id)
     {
+      if ($this->session->userdata('userpermissions')[0]['edit_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $id = hashids_decrypt($id);
       $data = array(
         'title' => 'Edit Role',
@@ -271,6 +287,9 @@ class Admin extends CI_Controller {
 
       public function delete_role($id)
       {
+        if ($this->session->userdata('userpermissions')[0]['delete_status']=='') {
+          redirect('Admin/dashboard');
+        }
         $id = hashids_decrypt($id);
         $this->Constant_model->CustomDeleteData('role_permission','role_id',$id);
         $res = $this->Constant_model->deleteData('role','role_id',$id);
@@ -285,8 +304,8 @@ class Admin extends CI_Controller {
 
     public function add_users($value='')
     {
-      if($this->session->userdata('user_type') != "admin") {
-        // redirect('Items/inventory');
+      if ($this->session->userdata('userpermissions')[1]['add_status']=='') {
+        redirect('Admin/dashboard');
       }
       $data = array(
         'title' => 'Add Users',
@@ -323,6 +342,9 @@ class Admin extends CI_Controller {
 
     public function view_users()
     {
+      if ($this->session->userdata('userpermissions')[1]['view_status']=='') {
+        redirect('Admin/dashboard');
+      }
       if($this->session->userdata('user_type') != "admin") {
         redirect('Properties/inventory');
       }
@@ -344,7 +366,6 @@ class Admin extends CI_Controller {
         $result = $this->admin_model->uers_search($search_val, $status='');
       } else {
         $result = $this->admin_model->get_Users();
-        // echo "<pre>";print_r($result);exit();
       }
         $data = array();
         $sno = 1;
@@ -378,6 +399,9 @@ class Admin extends CI_Controller {
 
     public function edit_users($id)
     {
+      if ($this->session->userdata('userpermissions')[1]['edit_status']=='') {
+        redirect('Admin/dashboard');
+      }
       if($this->session->userdata('user_type') != "admin") {
         redirect('Items/inventory');
       }
@@ -395,6 +419,9 @@ class Admin extends CI_Controller {
     }
     public function delete_user($id)
     {
+      if ($this->session->userdata('userpermissions')[1]['edit_status']=='') {
+        redirect('Admin/dashboard');
+      }
       $id = hashids_decrypt($id);
         $res = $this->Constant_model->deleteData('users',$id);
         if ($res) {

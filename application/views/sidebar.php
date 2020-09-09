@@ -89,10 +89,10 @@ $role_permission=$this->session->userdata('userpermissions');
                    <?php } ?>
               </li>
             <?php }  ?>
-            <li class=" nav-item <?php echo (@$active_menu=='reports'?'active':'')?>">
-              <a href="<?=site_url('reports/index');?>"><i class="ft-file"></i><span data-i18n="" class="menu-title" style="font-size: 14px!important;">Reports</span>
+            <!-- <li class=" nav-item <php echo (@$active_menu=='reports'?'active':'')?>">
+              <a href="<=site_url('reports/index');?>"><i class="ft-file"></i><span data-i18n="" class="menu-title" style="font-size: 14px!important;">Reports</span>
               </a>
-            </li>
+            </li> -->
 
             <li class="has-sub nav-item <?php echo (@$active_menu=='view_user' || @$active_menu=='view_users'?'open':'')?>"><a><i class="ft-users"></i><span data-i18n="" class="menu-title">Users</span></a>
               <?php if (@$role_permission[1]['add_status']!='') { ?>

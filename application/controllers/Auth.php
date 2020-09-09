@@ -13,14 +13,13 @@ class Auth extends CI_Controller {
     }
 	public function index()
 	{
-		if ($this->session->userdata('user_type') == 'admin' || $this->session->userdata('user_type') == 'partner_admin') {
+		if ($this->session->userdata('user_type') == 'admin' ) {
 			return redirect('admin/dashboard');
 		}
 		$this->load->view('login');
 	}
 	public function login()
 	{
-
 		$username = strip_tags($this->input->post('username'));
 		$password = strip_tags($this->input->post('password'));
 		$data = array(

@@ -14,6 +14,9 @@ class Users extends CI_Controller {
   }
 
   public function add_customers() {
+    if ($this->session->userdata('userpermissions')[2]['add_status']=='') {
+      redirect('Admin/dashboard');
+    }
     $data = array(
       'title' => 'Add Customers',
       'active_menu' => 'add_customers',
@@ -25,13 +28,6 @@ class Users extends CI_Controller {
   }
 
   public function save_customers() {
-
-    // if (!empty($_FILES)) {
-    //     $img = img_upload($_FILES, 'app-assets/images/product_img/');
-    //   }
-    //   if(@$img['status'] == 'error') {
-    //     $img = '404.png';
-    // }
 
     $data = array(
       'first_name' => $this->input->post('first_name'),
@@ -52,6 +48,9 @@ class Users extends CI_Controller {
   }
 
   public function view_customers($value='') {
+    if ($this->session->userdata('userpermissions')[2]['view_status']=='') {
+      redirect('Admin/dashboard');
+    }
     $data = array(
       'title' => 'View Customer',
       'active_menu' => 'view_customers'
@@ -104,6 +103,9 @@ class Users extends CI_Controller {
 
   public function edit_customers($id)
   {
+    if ($this->session->userdata('userpermissions')[2]['edit_status']=='') {
+      redirect('Admin/dashboard');
+    }
     $id = hashids_decrypt($id);
     $data = array(
       'title' => 'Edit Customers',
@@ -118,6 +120,9 @@ class Users extends CI_Controller {
 
   public function delete_supplier($id)
   {
+    if ($this->session->userdata('userpermissions')[2]['delete_status']=='') {
+      redirect('Admin/dashboard');
+    }
     $id = hashids_decrypt($id);
     $res = $this->Constant_model->deleteData('customers','customer_id',$id);
     $this->session->set_flashdata(array('response' => 'success', 'msg' => "Deleted Customer successfully!"));

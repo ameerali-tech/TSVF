@@ -63,7 +63,7 @@ $alert_msg=$this->session->userdata('alert_msg');
                   <img src="app-assets/img/gallery/register.png" alt="" class="img-fluid mt-3 pl-3" width="400" height="230">
                 </div>
                 <div class="col-lg-6 col-md-12 bg-white px-4 pt-3">
-                  <form class="login-form" action="<?=site_url('auth/login')?>" method="post">
+                  <form class="login-form" action="<?=site_url('Auth/login')?>" method="post">
                   <h4 class="mb-2 card-title">Login</h4>
                   <p class="card-text mb-3">
                     Wellcome to CORNER STONES 8 Properties Management system
