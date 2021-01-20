@@ -8,7 +8,7 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'root',
-	'password' => '',
+	'password' => 'root',
 	'database' => 'martinbornilla',
 	// 'username' => 'alphdvgb_projects',
 	// 'password' => '=edw3o*mvGYa',

@@ -21,10 +21,10 @@ class Admin extends CI_Controller {
         'active_menu' => 'dashboard',
       );
 
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('dashboard');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
 
     // Quotes Start
@@ -41,10 +41,10 @@ class Admin extends CI_Controller {
         'propertiesdata'=> $this->Constant_model->get_alltable('properties'),
       );
 
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('add_quotes');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
 
     public function save_quotes()
@@ -107,10 +107,10 @@ class Admin extends CI_Controller {
         "record_more" => $this->Constant_model->getRows2('payments','quote_id',$id),
       );
 
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('add_quotes');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
 
     public function view_quotes()
@@ -123,10 +123,10 @@ class Admin extends CI_Controller {
         'active_menu' => 'view_quotes',
       );
 
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('view_quotes');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
     public function getQuotes($value='')
     {
@@ -183,16 +183,6 @@ class Admin extends CI_Controller {
       echo json_encode($data);
     }
 
-    public function view_details_popup($id) {
-      $data = array(
-        'title' => "Order details",
-        "record" => $this->admin_model->get_quote_data($id),
-      );
-      $data=$this->load->view("quote_details_popup",$data,TRUE);
-      echo json_encode($data);
-
-    }
-
     // Quotes End
 
     // role Controller
@@ -205,10 +195,10 @@ class Admin extends CI_Controller {
         'title' => 'Add Role',
         'active_menu' => 'add_role',
       );
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('add_role');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
 
     public function save_role()
@@ -241,10 +231,10 @@ class Admin extends CI_Controller {
         'active_menu' => 'view_role',
         'role_data' => $this->Constant_model->get_alltable_desc('role_id','role'),
       );
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('view_role');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
 
     public function edit_role($id)
@@ -259,10 +249,10 @@ class Admin extends CI_Controller {
         'role_data' => $this->Constant_model->getDataOneColumn('role_permission','role_id',$id),
         'role_name' => $this->Constant_model->getOneCol('role','role_id',$id),
       );
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('edit_role');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
 
     public function update_role()
@@ -312,10 +302,10 @@ class Admin extends CI_Controller {
         'active_menu' => 'add_users',
         'roles' => $this->Constant_model->get_alltable('role'),
       );
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('add_users');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
 
     public function save_user()
@@ -352,10 +342,10 @@ class Admin extends CI_Controller {
         'title' => 'View Users',
         'active_menu' => 'view_user'
       );
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('view_users');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
       $this->admin_model->get_Users();
     }
 
@@ -412,10 +402,10 @@ class Admin extends CI_Controller {
         'user_data' => $this->Constant_model->getOneCol('users','id',$id),
         'roles' => $this->Constant_model->get_alltable('role'),
       );
-      $this->load->view('header',$data);
-      $this->load->view('sidebar');
+      $this->load->view('includes/header',$data);
+      $this->load->view('includes/sidebar');
       $this->load->view('add_users');
-      $this->load->view('footer');
+      $this->load->view('includes/footer');
     }
     public function delete_user($id)
     {
